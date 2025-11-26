@@ -16,11 +16,11 @@ class ProjectForm
                 Select::make('status')
                     ->label('Status')
                     ->options([
-                        'pending' => 'Pending',
-                        'in_progress' => 'In Progress',
-                        'completed' => 'Completed',
-                        'on_hold' => 'On Hold',
-                        'cancelled' => 'Cancelled',
+                        'Pending' => 'Pending',
+                        'In progress' => 'In Progress',
+                        'Completed' => 'Completed',
+                        'On hold' => 'On Hold',
+                        'Cancelled' => 'Cancelled',
                     ])
                     ->required(),
             ]);
