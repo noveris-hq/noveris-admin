@@ -19,6 +19,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProjectResource extends Resource
 {
+    protected static ?string $navigationLabel = 'Projekt';
+
+    protected static ?string $pluralModelLabel = 'Projekt';
+
+    protected static ?string $modelLabel = 'Projekt';
+
     protected static ?string $model = Project::class;
 
     protected static string|BackedEnum|null $navigationIcon = 'eos-project-o';

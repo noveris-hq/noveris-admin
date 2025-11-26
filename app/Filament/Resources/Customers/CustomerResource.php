@@ -20,6 +20,12 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CustomerResource extends Resource
 {
+    protected static ?string $navigationLabel = 'Kunder';
+
+    protected static ?string $pluralModelLabel = 'Kunder';
+
+    protected static ?string $modelLabel = 'Kund';
+
     protected static ?string $model = Customer::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
