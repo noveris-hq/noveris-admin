@@ -19,6 +19,14 @@ class Project extends Model
         'customer_id',
     ];
 
+    public static $statuses = [
+        'pending',
+        'in_progress',
+        'completed',
+        'on_hold',
+        'cancelled',
+    ];
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
