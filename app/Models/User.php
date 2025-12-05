@@ -46,7 +46,6 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'is_admin' => 'boolean',
         ];
     }
 
@@ -65,14 +64,9 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         if ($panel->getId() === 'admin') {
-            return $this->is_admin;
+            return str_ends_with($this->email, '@gmail.com');
         }
 
         return false;
-    }
-
-    public function canAccess(): bool
-    {
-        return auth()->user()?->is_admin;
     }
 }
