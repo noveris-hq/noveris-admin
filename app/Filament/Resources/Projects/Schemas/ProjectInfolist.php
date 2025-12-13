@@ -17,6 +17,7 @@ class ProjectInfolist
                         TextEntry::make('name')->label('Projekt Namn'),
                         TextEntry::make('customer.name')->label('Kund Namn'),
                         TextEntry::make('status')->label('Status'),
+                        TextEntry::make('description')->label('Beskrivning'),
                         TextEntry::make('created_at')->label('Created At')->dateTime(),
                         TextEntry::make('updated_at')->label('Updated At')->dateTime(),
                     ])->columns(2),
