@@ -12,7 +12,10 @@ class Dashboard extends BaseDashboard
 
     public function canAccessPanel(): bool
     {
-        info('Välkommen till administrationspanelen! Här kan du hantera projekt, kunder och användare effektivt. Använd navigationsmenyn för att komma åt olika sektioner och utforska funktionerna som erbjuds för att underlätta ditt arbete.');
+        info('Välkommen till administrationspanelen!
+            Här kan du hantera projekt, kunder och användare effektivt.
+            Använd navigationsmenyn för att komma åt olika sektioner och
+            utforska funktionerna som erbjuds för att underlätta ditt arbete.');
 
         return $this->is_admin;
     }
