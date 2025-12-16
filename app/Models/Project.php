@@ -16,7 +16,7 @@ class Project extends Model
         'start_date',
         'end_date',
         'status',
-        'customer_id',
+        'user_id',
     ];
 
     public static $statuses = [
@@ -27,8 +27,8 @@ class Project extends Model
         'cancelled',
     ];
 
-    public function customer(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(User::class);
     }
 }

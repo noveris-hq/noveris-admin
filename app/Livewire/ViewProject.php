@@ -7,13 +7,9 @@ use Livewire\Component;
 
 class ViewProject extends Component
 {
-
-    public function getProject() {
-        $user = Auth::user();
-        if($user || !$user->customer) {
-            return null;
-        }
-        return $user->customer()->projects()->latest()->first();
+    public function getProject()
+    {
+        return Auth::user()->projects()->latest()->first();
     }
 
     public function render()
