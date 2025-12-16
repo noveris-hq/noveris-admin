@@ -12,15 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Disable FK checks to allow drops
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::disableForeignKeyConstraints();
 
-        // Drop customer_id FK if exists
-        DB::statement('ALTER TABLE projects DROP FOREIGN KEY IF EXISTS `projects_customer_id_foreign`;');
-
-        // Drop customer_id column if exists
+        // Drop customer_id column if exists (drop foreign key first)
         Schema::table('projects', function (Blueprint $table) {
             if (Schema::hasColumn('projects', 'customer_id')) {
+                try {
+                    $table->dropForeign(['customer_id']);
+                } catch (\Exception $e) {
+                    // FK may not exist
+                }
                 $table->dropColumn('customer_id');
             }
         });
@@ -32,8 +33,7 @@ return new class extends Migration
             }
         });
 
-        // Re-enable FK checks
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
