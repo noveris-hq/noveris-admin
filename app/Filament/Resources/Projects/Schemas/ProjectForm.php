@@ -23,9 +23,9 @@ class ProjectForm
                         'Cancelled' => 'Cancelled',
                     ])
                     ->required(),
-                Select::make('customer_id')
-                ->label('Kund')
-                ->relationship('customer', 'name'),
+                Select::make('user_id')
+                    ->label('Kund')
+                    ->relationship('user', 'name'),
                 TextInput::make('description')->label('Beskrivning'),
             ]);
     }

@@ -7,7 +7,7 @@ use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -25,6 +25,12 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'phone',
+        'address',
+        'city',
+        'postal_code',
+        'vat_number',
+        'reference_name',
     ];
 
     /**
@@ -50,16 +56,13 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function customer(): BelongsTo
+    public function projects(): HasMany
     {
-        return $this->belongsTo(Customer::class);
+        return $this->hasMany(Project::class);
     }
 
     /**
      * Determine if the user can access the given panel.
-     *
-     * @param Panel $panel
-     * @return bool
      */
     public function canAccessPanel(Panel $panel): bool
     {

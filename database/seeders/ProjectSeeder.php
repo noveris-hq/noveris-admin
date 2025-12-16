@@ -19,7 +19,7 @@ class ProjectSeeder extends Seeder
                 'start_date' => '2024-01-15',
                 'end_date' => '2024-03-30',
                 'status' => 'In Progress',
-                'customer_id' => 1,
+                'user_id' => 1,
             ],
             [
                 'name' => 'Mobile App Development',
@@ -27,7 +27,7 @@ class ProjectSeeder extends Seeder
                 'start_date' => '2024-02-01',
                 'end_date' => '2024-06-15',
                 'status' => 'Not Started',
-                'customer_id' => 2,
+                'user_id' => 2,
             ],
         ];
 

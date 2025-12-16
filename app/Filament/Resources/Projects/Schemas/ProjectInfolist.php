@@ -15,7 +15,7 @@ class ProjectInfolist
                 Section::make('Projekt Information')
                     ->schema([
                         TextEntry::make('name')->label('Projekt Namn'),
-                        TextEntry::make('customer.name')->label('Kund Namn'),
+                        TextEntry::make('user.name')->label('Kundens namn'),
                         TextEntry::make('status')->label('Status'),
                         TextEntry::make('description')->label('Beskrivning'),
                         TextEntry::make('created_at')->label('Created At')->dateTime(),
