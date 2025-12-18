@@ -29,7 +29,11 @@
 <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] dark:text-white">
     @if (Auth::check())
         @include('partials.admin-nav')
+        <x-side-panel>
+            {{ $slot }}
+        </x-side-panel>
+    @else
+        {{ $slot }}
     @endif
-    {{ $slot }}
     @fluxScripts
 </body>

@@ -11,17 +11,7 @@ Route::get('/', function () {
 /* })->name('login'); */
 
 Route::middleware('auth', 'verified')->group(function () {
-    /* Route::get('/profile', function () { */
-    /*     return view('profile'); */
-    /* })->name('profile'); */
-    /* Route::view('/profile', 'profile')->name('profile'); */
-    /* Route::get('settings/profile', Profile::class)->name('profile.edit'); */
-    /* Route::get('/user-information', function () { */
-    /*     return view('user-information'); */
-    /* })->name('user-information')->prefix('profile/'); */
-    /* Route::get('/edit-profile', function () { */
-    /*     return view('edit-profile'); */
-    /* })->name('profile.edit'); */
+    Route::view('/profile', 'profile')->name('profile');
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::view('/projects', 'projects.index')->name('projects.index');
     Route::view('/projects/{id}', 'projects.show')->name('projects.show');
