@@ -22,6 +22,7 @@
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fluxAppearance
 
 </head>
 
@@ -29,7 +30,6 @@
     @if (Auth::check())
         @include('partials.admin-nav')
     @endif
-    <div class="min-h-screen p-6 lg:p-8">
-        {{ $slot }}
-    </div>
+    {{ $slot }}
+    @fluxScripts
 </body>

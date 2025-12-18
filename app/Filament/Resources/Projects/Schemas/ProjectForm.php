@@ -13,6 +13,14 @@ class ProjectForm
         return $schema
             ->components([
                 TextInput::make('name')->label('Projekt Namn')->required(),
+                TextInput::make('start_date')
+                    ->label('Startdatum')
+                    ->type('date')
+                    ->required(),
+                TextInput::make('end_date')
+                    ->label('Slutdatum')
+                    ->type('date')
+                    ->required(),
                 Select::make('status')
                     ->label('Status')
                     ->options([

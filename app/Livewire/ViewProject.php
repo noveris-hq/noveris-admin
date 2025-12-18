@@ -2,18 +2,26 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class ViewProject extends Component
 {
-    public function getProject()
+    public $project;
+
+    public function mount()
     {
-        return Auth::user()->projects()->latest()->first();
+        $this->project = $this->getProject();
+    }
+
+    private function getProject()
+    {
+        return auth()->user()->projects()->latest()->first();
     }
 
     public function render()
     {
-        return view('livewire.view-project');
+        return view('livewire.view-project', [
+            'project' => $this->project,
+        ]);
     }
 }
