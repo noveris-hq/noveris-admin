@@ -19,7 +19,7 @@ class ProjectInfolist
                         TextEntry::make('end_date')->label('Slutdatum')->date(),
                         TextEntry::make('user.name')->label('Kundens namn'),
                         TextEntry::make('status')->label('Status'),
-                        TextEntry::make('description')->label('Beskrivning'),
+                        TextEntry::make('description')->label('Beskrivning')->markdown(),
                         TextEntry::make('created_at')->label('Created At')->dateTime(),
                         TextEntry::make('updated_at')->label('Updated At')->dateTime(),
                     ])->columns(2),

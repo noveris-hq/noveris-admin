@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -34,7 +35,11 @@ class ProjectForm
                 Select::make('user_id')
                     ->label('Kund')
                     ->relationship('user', 'name'),
-                TextInput::make('description')->label('Beskrivning'),
+                /* TextInput::make('description')->label('Beskrivning'), */
+                MarkdownEditor::make('description')
+                    ->required()
+                    ->columnSpan(2)
+                    ->helperText('Supports Markdown syntax with live preview'),
             ]);
     }
 }

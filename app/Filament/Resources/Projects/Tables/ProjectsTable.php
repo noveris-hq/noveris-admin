@@ -26,8 +26,8 @@ class ProjectsTable
                 TextColumn::make('start_date')->label('Startdatum')->date()->sortable(),
                 TextColumn::make('end_date')->label('Slutdatum')->date()->sortable(),
                 TextColumn::make('status')->label('Status')->sortable()->searchable(),
-                TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(),
-                TextColumn::make('updated_at')->label('Updated At')->dateTime()->sortable(),
+                /* TextColumn::make('created_at')->label('Created At')->dateTime()->sortable(), */
+                /* TextColumn::make('updated_at')->label('Updated At')->dateTime()->sortable(), */
             ])
             ->filters([
                 TrashedFilter::make(),
