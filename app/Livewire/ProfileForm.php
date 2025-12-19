@@ -4,46 +4,52 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ProfileForm extends Component
 {
-    public User $user;
+    public ?User $user = null;
 
-    public string $name;
+    #[Validate('required|string|max:255')]
+    public string $name = '';
 
-    public string $email;
+    public string $email = '';
 
-    public ?string $phone;
+    public ?string $phone = '';
 
-    public ?string $address;
+    public ?string $address = '';
 
-    public ?string $city;
+    public ?string $city = '';
 
-    public ?string $postal_code;
+    public ?string $postal_code = '';
 
-    public ?string $vat_number;
+    public ?string $vat_number = '';
 
-    public ?string $reference_name;
+    public ?string $reference_name = '';
 
     public function mount()
     {
         $this->user = auth()->user();
-        $this->name = $this->user->name;
-        $this->email = $this->user->email;
-        $this->phone = $this->user->phone;
-        $this->address = $this->user->address;
-        $this->city = $this->user->city;
-        $this->postal_code = $this->user->postal_code;
-        $this->vat_number = $this->user->vat_number;
-        $this->reference_name = $this->user->reference_name;
+
+        if ($this->user) {
+            $this->name = (string) ($this->user->name ?? '');
+            $this->email = (string) ($this->user->email ?? '');
+            $this->phone = (string) ($this->user->phone ?? '');
+            $this->address = (string) ($this->user->address ?? '');
+            $this->city = (string) ($this->user->city ?? '');
+            $this->postal_code = (string) ($this->user->postal_code ?? '');
+            $this->vat_number = (string) ($this->user->vat_number ?? '');
+            $this->reference_name = (string) ($this->user->reference_name ?? '');
+        }
     }
 
-    public function save()
+    public function save(): void
     {
+        // Validate incoming fields
         $validated = $this->validate([
             'name' => 'required|string|max:255',
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->user->id)],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user?->id)],
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
@@ -52,7 +58,10 @@ class ProfileForm extends Component
             'reference_name' => 'nullable|string|max:255',
         ]);
 
-        $this->user->update($validated);
+        $this->dispatch('user-name-updated', name: $this->name);
+
+        // Update the authenticated user
+        $this->user?->update($validated);
 
         session()->flash('message', 'Profil uppdaterad!');
     }

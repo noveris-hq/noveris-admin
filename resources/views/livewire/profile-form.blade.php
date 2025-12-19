@@ -2,30 +2,41 @@
     <flux:main container class="max-w-xl lg:max-w-3xl">
         <flux:heading size="xl">Settings</flux:heading>
         <flux:separator variant="subtle" class="my-8" />
-        <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
-            <div class="w-80">
-                <flux:heading size="lg">Profile</flux:heading>
-                <flux:subheading>This is how others will see you on the site.</flux:subheading>
-            </div>
-            <div class="flex-1 space-y-6">
-                <flux:input label="Username"
-                    description="This is your public display name. It can be your real name or a pseudonym. You can only change this once every 30 days."
-                    placeholder="calebporzio" />
-                <flux:select label="Primary email"
-                    description:trailing="You can manage verified email addresses in your email settings."
-                    placeholder="Select primary email...">
-                    <flux:select.option>lotrrules22@aol.com</flux:select.option>
-                    <flux:select.option>phantomatrix@hotmail.com</flux:select.option>
-                </flux:select>
-                <flux:textarea label="Bio"
-                    description:trailing="You can @mention other users and organizations to link to them."
-                    placeholder="Tell us a little bit about yourself" />
-                <div class="flex justify-end">
-                    <flux:button type="submit" variant="primary">Save profile</flux:button>
+
+        <form wire:submit="save">
+            @csrf
+            <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
+                <div class="w-80">
+                    <flux:heading size="lg">Profile</flux:heading>
+                    <flux:subheading>Update your personal and company information.</flux:subheading>
+                </div>
+                <div class="flex-1 space-y-6">
+                    <flux:input wire:model="name" :value="$name" label="Namn" placeholder="Ditt namn" />
+
+                    <flux:input wire:model="email" :value="$email" type="email" label="E-post" placeholder="din@email.com" />
+
+                    <flux:input wire:model="phone" :value="$phone" type="tel" label="Telefon" placeholder="070-123 45 67" />
+
+                    <flux:input wire:model="address" :value="$address" label="Adress" placeholder="Gatuadress" />
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <flux:input wire:model="postal_code" :value="$postal_code" label="Postnummer" placeholder="123 45" />
+                        <flux:input wire:model="city" :value="$city" label="Stad" placeholder="Stockholm" />
+                    </div>
+
+                    <flux:input wire:model="vat_number" :value="$vat_number" label="Organisationsnummer" placeholder="XXXXXX-XXXX" />
+
+                    <flux:input wire:model="reference_name" :value="$reference_name" label="Referensnamn" placeholder="Referens" />
+
+                    <div class="flex justify-end">
+                        <flux:button type="submit" variant="primary" wire:click.prevent="save">Spara profil</flux:button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+
         <flux:separator variant="subtle" class="my-8" />
+
         <div class="flex flex-col lg:flex-row gap-4 lg:gap-6">
             <div class="w-80">
                 <flux:heading size="lg">Preferences</flux:heading>
@@ -49,7 +60,9 @@
                 </div>
             </div>
         </div>
+
         <flux:separator variant="subtle" class="my-8" />
+
         <div class="flex flex-col lg:flex-row gap-4 lg:gap-6 pb-10">
             <div class="w-80">
                 <flux:heading size="lg">Email notifications</flux:heading>
@@ -72,83 +85,6 @@
             </div>
         </div>
     </flux:main>
-
-
-    <form wire:submit="save" class="space-y-4">
-        <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">Namn</label>
-            <input wire:model="name" value="{{ $name }}" type="text" id="name"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('name')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">E-post</label>
-            <input wire:model="email" type="email" id="email" value="{{ $email }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('email')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="phone" class="block text-sm font-medium text-gray-700">Telefon</label>
-            <input wire:model="phone" type="text" id="phone" value="{{ $phone }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('phone')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="address" class="block text-sm font-medium text-gray-700">Adress</label>
-            <input wire:model="address" type="text" id="address" value="{{ $address }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('address')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="city" class="block text-sm font-medium text-gray-700">Stad</label>
-            <input wire:model="city" type="text" id="city" value="{{ $city }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('city')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="postal_code" class="block text-sm font-medium text-gray-700">Postnummer</label>
-            <input wire:model="postal_code" type="text" id="postal_code" value="{{ $postal_code }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('postal_code')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="vat_number" class="block text-sm font-medium text-gray-700">Organisationsnummer</label>
-            <input wire:model="vat_number" type="text" id="vat_number" value="{{ $vat_number }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('vat_number')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <div>
-            <label for="reference_name" class="block text-sm font-medium text-gray-700">Referensnamn</label>
-            <input wire:model="reference_name" type="text" id="reference_name" value="{{ $reference_name }}"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
-            @error('reference_name')
-                <span class="text-red-500">{{ $message }}</span>
-            @enderror
-        </div>
-
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Spara</button>
-    </form>
 
     @if (session()->has('message'))
         <div class="mt-4 p-4 bg-green-100 text-green-700 rounded">

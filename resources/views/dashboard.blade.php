@@ -2,7 +2,7 @@
     @section('title', 'Noveris | Dashboard')
     @section('description', 'Dashboard för Noveris kunder.')
 
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="mx-auto p-6">
         <h1 class="text-2xl font-semibold mb-4"> Hej {{ auth()->user()->name }}!</h1>
         <p>Här är ditt senaste projekt</p>
         <div class="mt-4">
