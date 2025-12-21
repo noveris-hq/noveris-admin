@@ -2,37 +2,36 @@
 
 namespace App\Livewire;
 
+use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use Livewire\Component;
 
 class ProjectDetails extends Component
 {
-    public $id;
-
     public $project;
 
-    public function mount($id)
+    public function mount(Project $project): void
     {
-        $this->id = $id;
-        $this->project = $this->viewProjectDetails($id);
+        $this->viewProjectDetails($project->id);
     }
 
-    private function viewProjectDetails($id)
+    private function viewProjectDetails($id): Project
     {
-        $project = Auth::user()->projects()->find($id);
+        $this->project = Auth::user()->projects()->find($id);
 
-        if (! $project) {
+        if (! $this->project) {
             abort(404, 'Project not found.');
         }
 
-        return $project;
+        return $this->project;
     }
 
-    public function render()
+    public function render(): View
     {
-
-        return view('livewire.project-details', [
-            'project' => $this->project,
+        return view('livewire.projects.project-details')->layout('components.layouts.app', [
+            'title' => 'Noveris Admin | Projekt detaljer för - '.$this->project->name,
+            'description' => 'Detaljer för projektet '.$this->project->name,
         ]);
     }
 }

@@ -15,8 +15,9 @@ class ProjectsList extends Component
 
     public function render()
     {
-        return view('livewire.projects-list', [
-            'projects' => $this->projects,
+        return view('livewire.projects.projects-list')->layout('components.layouts.app', [
+            'title' => 'Noveris Admin | Mina Projekt',
+            'description' => 'En översikt över alla dina projekt.',
         ]);
     }
 }

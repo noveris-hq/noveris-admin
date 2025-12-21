@@ -38,3 +38,7 @@
         --color-accent-foreground: var(--color-orange-950);
     }
 }
+
+[x-cloak] {
+    display: none !important;
+}

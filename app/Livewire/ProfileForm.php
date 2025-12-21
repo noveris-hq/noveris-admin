@@ -47,6 +47,7 @@ class ProfileForm extends Component
     public function save(): void
     {
         // Validate incoming fields
+        // !TODO refactor the validation and assign rules to properties instead
         $validated = $this->validate([
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user?->id)],
@@ -58,6 +59,9 @@ class ProfileForm extends Component
             'reference_name' => 'nullable|string|max:255',
         ]);
 
+        // And make use of this instead
+        /* $this->validate(); */
+
         $this->dispatch('user-name-updated', name: $this->name);
 
         // Update the authenticated user
@@ -68,6 +72,6 @@ class ProfileForm extends Component
 
     public function render()
     {
-        return view('livewire.profile-form');
+        return view('livewire.profile.profile-form');
     }
 }

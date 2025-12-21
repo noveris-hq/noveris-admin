@@ -1,5 +1,9 @@
 <?php
 
+use App\Livewire\DashboardProjects;
+use App\Livewire\ProfileForm;
+use App\Livewire\ProjectDetails;
+use App\Livewire\ProjectsList;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -11,10 +15,14 @@ Route::get('/', function () {
 /* })->name('login'); */
 
 Route::middleware('auth', 'verified')->group(function () {
-    Route::view('/profile', 'profile')->name('profile');
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
-    Route::view('/projects', 'projects.index')->name('projects.index');
-    Route::view('/projects/{id}', 'projects.show')->name('projects.show');
+    Route::get('/profile', ProfileForm::class)->name('profile');
+    /* Route::view('/profile', 'profile')->name('profile'); */
+    /* Route::view('/dashboard', 'dashboard')->name('dashboard'); */
+    Route::get('/dashboard', DashboardProjects::class)->name('dashboard');
+    /* Route::view('/projects', 'projects.index')->name('projects.index'); */
+    Route::get('/projects', ProjectsList::class)->name('projects.index');
+    /* Route::view('/projects/{id}', 'projects.show')->name('projects.show'); */
+    Route::get('/projects/{project}', ProjectDetails::class)->name('projects.show');
 });
 
 /* Route::view('/profile', 'profile')->name('profile')->middleware('auth'); */
