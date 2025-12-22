@@ -1,7 +1,7 @@
 <?php
 
 use App\Livewire\DashboardProjects;
-use App\Livewire\ProfileForm;
+use App\Livewire\EditProfile;
 use App\Livewire\ProjectDetails;
 use App\Livewire\ProjectsList;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +15,7 @@ Route::get('/', function () {
 /* })->name('login'); */
 
 Route::middleware('auth', 'verified')->group(function () {
-    Route::get('/profile', ProfileForm::class)->name('profile');
+    Route::get('/profile', EditProfile::class)->name('profile');
     /* Route::view('/profile', 'profile')->name('profile'); */
     /* Route::view('/dashboard', 'dashboard')->name('dashboard'); */
     Route::get('/dashboard', DashboardProjects::class)->name('dashboard');
