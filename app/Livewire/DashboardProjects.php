@@ -3,9 +3,12 @@
 namespace App\Livewire;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+#[Layout('components.layouts.app')]
 class DashboardProjects extends Component
 {
     use WithPagination;
@@ -20,12 +23,11 @@ class DashboardProjects extends Component
         return auth()->user()->projects()->latest()->paginate(5);
     }
 
-    public function render()
+    public function render(): View
     {
-
         return view('livewire.dashboard.dashboard-projects', [
             'projects' => $this->getProjects(),
-        ])->layout('components.layouts.app', [
+        ])->layoutData([
             'title' => 'Noveris Admin | Dashboard',
             'description' => 'Hantera projekt i Noveris Admin.',
         ]);
