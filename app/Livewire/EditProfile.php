@@ -4,14 +4,14 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Validation\Rule;
-use Livewire\Attributes\Validate;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class EditProfile extends Component
 {
-    public ?User $user = null;
+    public User $user;
 
-    #[Validate('required|string|max:255')]
     public string $name = '';
 
     public string $email = '';
@@ -32,23 +32,25 @@ class EditProfile extends Component
     {
         $this->user = auth()->user();
 
+        if (! $this->user) {
+            return redirect()->route('login');
+        }
+
         if ($this->user) {
-            $this->name = (string) ($this->user->name ?? '');
-            $this->email = (string) ($this->user->email ?? '');
-            $this->phone = (string) ($this->user->phone ?? '');
-            $this->address = (string) ($this->user->address ?? '');
-            $this->city = (string) ($this->user->city ?? '');
-            $this->postal_code = (string) ($this->user->postal_code ?? '');
-            $this->vat_number = (string) ($this->user->vat_number ?? '');
-            $this->reference_name = (string) ($this->user->reference_name ?? '');
+            $this->name = $this->user->name;
+            $this->email = $this->user->email;
+            $this->phone = $this->user->phone ?? '';
+            $this->address = $this->user->address ?? '';
+            $this->city = $this->user->city ?? '';
+            $this->postal_code = $this->user->postal_code ?? '';
+            $this->vat_number = $this->user->vat_number ?? '';
+            $this->reference_name = $this->user->reference_name ?? '';
         }
     }
 
-    public function save(): void
+    protected function rules(): array
     {
-        // Validate incoming fields
-        // !TODO refactor the validation and assign rules to properties instead
-        $validated = $this->validate([
+        return [
             'name' => 'required|string|max:255',
             'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user?->id)],
             'phone' => 'nullable|string|max:255',
@@ -57,21 +59,27 @@ class EditProfile extends Component
             'postal_code' => 'nullable|string|max:255',
             'vat_number' => 'nullable|string|max:255',
             'reference_name' => 'nullable|string|max:255',
-        ]);
+        ];
+    }
 
-        // And make use of this instead
-        /* $this->validate(); */
+    public function save(): void
+    {
+        $validated = $this->validate();
 
-        $this->dispatch('user-name-updated', name: $this->name);
-
-        // Update the authenticated user
         $this->user?->update($validated);
 
+        // sending update to sidebar component
+        $this->dispatch('user-name-updated', name: $this->user->name);
+
+        // Replace this with FluxUI toast notification when available
         session()->flash('message', 'Profil uppdaterad!');
     }
 
     public function render()
     {
-        return view('livewire.profile.edit-profile');
+        return view('livewire.profile.edit-profile')->layoutData([
+            'title' => 'Noveris Admin | Redigera Profil',
+            'description' => 'Uppdatera din information här.',
+        ]);
     }
 }

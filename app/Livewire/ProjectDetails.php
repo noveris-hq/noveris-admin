@@ -5,8 +5,10 @@ namespace App\Livewire;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class ProjectDetails extends Component
 {
     public $project;
@@ -29,7 +31,7 @@ class ProjectDetails extends Component
 
     public function render(): View
     {
-        return view('livewire.projects.project-details')->layout('components.layouts.app', [
+        return view('livewire.projects.project-details')->layoutData([
             'title' => 'Noveris Admin | Projekt detaljer för - '.$this->project->name,
             'description' => 'Detaljer för projektet '.$this->project->name,
         ]);

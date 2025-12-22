@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('components.layouts.app')]
 class ProjectsList extends Component
 {
     public $projects;
@@ -15,7 +17,7 @@ class ProjectsList extends Component
 
     public function render()
     {
-        return view('livewire.projects.projects-list')->layout('components.layouts.app', [
+        return view('livewire.projects.projects-list')->layoutData([
             'title' => 'Noveris Admin | Mina Projekt',
             'description' => 'En översikt över alla dina projekt.',
         ]);
