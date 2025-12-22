@@ -11,7 +11,7 @@ use Livewire\Component;
 #[Layout('components.layouts.app')]
 class ProjectDetails extends Component
 {
-    public $project;
+    public Project $project;
 
     public function mount(Project $project): void
     {

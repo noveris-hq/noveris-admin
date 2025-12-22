@@ -4,13 +4,14 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 #[Layout('components.layouts.app')]
 class EditProfile extends Component
 {
-    public User $user;
+    public ?User $user = null;
 
     public string $name = '';
 
@@ -32,20 +33,16 @@ class EditProfile extends Component
     {
         $this->user = auth()->user();
 
-        if (! $this->user) {
-            return redirect()->route('login');
-        }
+        abort_unless($this->user = auth()->user(), 403);
 
-        if ($this->user) {
-            $this->name = $this->user->name;
-            $this->email = $this->user->email;
-            $this->phone = $this->user->phone ?? '';
-            $this->address = $this->user->address ?? '';
-            $this->city = $this->user->city ?? '';
-            $this->postal_code = $this->user->postal_code ?? '';
-            $this->vat_number = $this->user->vat_number ?? '';
-            $this->reference_name = $this->user->reference_name ?? '';
-        }
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->phone = $this->user->phone ?? '';
+        $this->address = $this->user->address ?? '';
+        $this->city = $this->user->city ?? '';
+        $this->postal_code = $this->user->postal_code ?? '';
+        $this->vat_number = $this->user->vat_number ?? '';
+        $this->reference_name = $this->user->reference_name ?? '';
     }
 
     protected function rules(): array
@@ -75,7 +72,7 @@ class EditProfile extends Component
         session()->flash('message', 'Profil uppdaterad!');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.profile.edit-profile')->layoutData([
             'title' => 'Noveris Admin | Redigera Profil',

@@ -58,7 +58,9 @@
 
                         <div class="flex justify-end">
                             <flux:button type="submit" variant="primary" class="hover:cursor-pointer"
-                                wire:click.prevent="save">Spara profil
+                                wire:click.prevent="save" wire:loading.attr="disabled">
+                                <span wire:loading.remove>Spara profil</span>
+                                <span wire:loading>Sparar...</span>
                             </flux:button>
                         </div>
                     </div>
