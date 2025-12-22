@@ -7,7 +7,7 @@ use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-class ProfileForm extends Component
+class EditProfile extends Component
 {
     public ?User $user = null;
 
