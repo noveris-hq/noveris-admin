@@ -31,8 +31,6 @@ class EditProfile extends Component
 
     public function mount(): void
     {
-        $this->user = auth()->user();
-
         abort_unless($this->user = auth()->user(), 403);
 
         $this->name = $this->user->name;
@@ -63,7 +61,7 @@ class EditProfile extends Component
     {
         $validated = $this->validate();
 
-        $this->user?->update($validated);
+        $this->user->update($validated);
 
         // sending update to sidebar component
         $this->dispatch('user-name-updated', name: $this->user->name);
