@@ -12,7 +12,7 @@ class ProjectsList extends Component
 {
     public Collection $projects;
 
-    public function mount()
+    public function mount(): void
     {
         $this->projects = auth()->user()->projects()->latest()->get();
     }

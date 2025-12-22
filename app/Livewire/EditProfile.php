@@ -29,7 +29,7 @@ class EditProfile extends Component
 
     public ?string $reference_name = '';
 
-    public function mount()
+    public function mount(): void
     {
         $this->user = auth()->user();
 
