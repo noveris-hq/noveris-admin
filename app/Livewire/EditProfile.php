@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Livewire\Attributes\Layout;
@@ -11,8 +10,6 @@ use Livewire\Component;
 #[Layout('components.layouts.app')]
 class EditProfile extends Component
 {
-    public ?User $user = null;
-
     public string $name = '';
 
     public string $email = '';
