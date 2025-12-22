@@ -28,16 +28,17 @@ class EditProfile extends Component
 
     public function mount(): void
     {
-        abort_unless($this->user = auth()->user(), 403);
+        $user = auth()->user();
+        abort_unless($user, 403);
 
-        $this->name = $this->user->name;
-        $this->email = $this->user->email;
-        $this->phone = $this->user->phone ?? '';
-        $this->address = $this->user->address ?? '';
-        $this->city = $this->user->city ?? '';
-        $this->postal_code = $this->user->postal_code ?? '';
-        $this->vat_number = $this->user->vat_number ?? '';
-        $this->reference_name = $this->user->reference_name ?? '';
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->phone = $user->phone ?? '';
+        $this->address = $user->address ?? '';
+        $this->city = $user->city ?? '';
+        $this->postal_code = $user->postal_code ?? '';
+        $this->vat_number = $user->vat_number ?? '';
+        $this->reference_name = $user->reference_name ?? '';
     }
 
     protected function rules(): array
