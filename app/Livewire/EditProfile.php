@@ -47,7 +47,7 @@ class EditProfile extends Component
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore($this->user?->id)],
+            'email' => ['required', 'email', Rule::unique('users', 'email')->ignore(auth()->id())],
             'phone' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:255',
@@ -61,10 +61,13 @@ class EditProfile extends Component
     {
         $validated = $this->validate();
 
-        $this->user->update($validated);
+        $user = auth()->user();
+        abort_unless($user, 403);
+
+        $user->update($validated);
 
         // sending update to sidebar component
-        $this->dispatch('user-name-updated', name: $this->user->name);
+        $this->dispatch('user-name-updated', name: $user->name);
 
         // Replace this with FluxUI toast notification when available
         session()->flash('message', 'Profil uppdaterad!');
