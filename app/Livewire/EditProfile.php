@@ -72,6 +72,6 @@ class EditProfile extends Component
 
     public function render()
     {
-        return view('livewire.profile.profile-form');
+        return view('livewire.profile.edit-profile');
     }
 }
