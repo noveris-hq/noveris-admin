@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.10.2",
         "livewire/flux": "^2.10.1",
         "livewire/volt": "^1.10.1",
+        "relaticle/flowforge": "^2.2",
         "resend/resend-php": "^1.1"
     },
     "require-dev": {
