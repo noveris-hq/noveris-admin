@@ -54,21 +54,9 @@ class TaskBoard extends BoardPage
                 TextEntry::make('due_date')->date('j F Y')->icon('heroicon-o-calendar'),
             ]))
             ->cardActions([
-                EditAction::make()->schema([
-                    TextInput::make('title')->required()->label('Title'),
-                    Select::make('priority')
-                        ->options([
-                            'low' => 'Low',
-                            'medium' => 'Medium',
-                            'high' => 'High',
-                        ])
-                        ->required()
-                        ->label('Priority'),
-                    DatePicker::make('due_date')->native(false)
-                        ->displayFormat('d F Y')
-                        ->locale('sv')->label('Due Date'),
-                    RichEditor::make('description')->label('Description'),
-                ])->model(Task::class),
+                EditAction::make()
+                    ->form(fn (Schema $schema) => $schema->components($this->getTaskFormSchema()))
+                    ->model(Task::class),
                 DeleteAction::make()->model(Task::class),
             ])
             ->cardAction('edit')
@@ -76,21 +64,7 @@ class TaskBoard extends BoardPage
                 CreateAction::make()
                     ->label('Add Task')
                     ->model(Task::class)
-                    ->schema([
-                        TextInput::make('title')->required()->label('Title'),
-                        Select::make('priority')
-                            ->options([
-                                'low' => 'Low',
-                                'medium' => 'Medium',
-                                'high' => 'High',
-                            ])
-                            ->required()
-                            ->label('Priority'),
-                        DatePicker::make('due_date')->native(false)
-                            ->displayFormat('d F Y')
-                            ->locale('sv')->label('Due Date'),
-                        RichEditor::make('description')->label('Description'),
-                    ])
+                    ->form(fn (Schema $schema) => $schema->components($this->getTaskFormSchema()))
                     ->mutateDataUsing(function (array $data, array $arguments): array {
                         if (isset($arguments['column'])) {
                             $data['status'] = $arguments['column'];
@@ -102,6 +76,31 @@ class TaskBoard extends BoardPage
             ]);
     }
 
+    /**
+     * Remove duplication by defining the task form schema in a separate method.
+     */
+    private function getTaskFormSchema(): array
+    {
+        return [
+            TextInput::make('title')->required()->label('Title'),
+            Select::make('priority')
+                ->options([
+                    'low' => 'Low',
+                    'medium' => 'Medium',
+                    'high' => 'High',
+                ])
+                ->required()
+                ->label('Priority'),
+            DatePicker::make('due_date')->native(false)
+                ->displayFormat('d F Y')
+                ->label('Due Date'),
+            RichEditor::make('description')->label('Description'),
+        ];
+    }
+
+    /**
+     * @return Builder<Task>
+     */
     public function getEloquentQuery(): Builder
     {
         return Task::query();

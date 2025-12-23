@@ -16,7 +16,10 @@ class Task extends Model
 
     ];
 
-    protected $casts = [
-        'due_date' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'due_date' => 'datetime',
+        ];
+    }
 }
