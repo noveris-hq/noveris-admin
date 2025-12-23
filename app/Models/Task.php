@@ -10,7 +10,6 @@ class Task extends Model
         'title',
         'description',
         'status',
-        'order_column',
         'due_date',
         'priority',
         'position',
@@ -20,6 +19,7 @@ class Task extends Model
     {
         return [
             'due_date' => 'datetime',
+            'priority' => 'string',
         ];
     }
 }
