@@ -13,7 +13,7 @@ class Task extends Model
         'order_column',
         'due_date',
         'priority',
-
+        'position',
     ];
 
     protected function casts(): array
